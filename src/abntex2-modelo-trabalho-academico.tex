@@ -1,0 +1,495 @@
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Trabalho Academico (tese de doutorado, dissertacao de
+% mestrado e trabalhos monograficos em geral) em conformidade com 
+% ABNT NBR 14724:2011: Informacao e documentacao - Trabalhos academicos -
+% Apresentacao
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	oneside,
+	%twoside,			% para impressão em verso e anverso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	francais,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% Pacotes básicos 
+% ---
+\usepackage{times}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+\usepackage{graphicx} 	
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Técnicas de Segmentação Automática de Sinais de Eletromiografia e Comparação de Acurácia de Classificação Utilizando Redes Neurais Artificiais}
+\autor
+{
+	UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL\\
+	ESCOLA DE ENGENHARIA\\
+	DEPARTAMENTO DE ENGENHARIA ELÉTRICA\\
+	GRADUAÇÃO EM ENGENHARIA ELÉTRICA\\
+	\vspace*{4\baselineskip} 
+	VICENTE COSTAMILAN DA CUNHA
+}
+\local{Porto Alegre}
+\data{2015}
+\orientador{Prof. Dr. Eng. Alexandre Balbinot}
+\coorientador{}
+\instituicao{}
+\tipotrabalho{Tese (Doutorado)}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Projeto de Diplomação apresentado ao Departamento de Engenharia Elétrica da Escola de Enegenharia da Universidade Federal do Rio Grande do Sul, como requisito parcial para Graduação em Engenharia Elétrica}
+% ---
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+\definecolor{black}{RGB}{0,0,0}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=black,          	% color of internal links
+    	citecolor=black,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=black,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Seleciona o idioma do documento (conforme pacotes do babel)
+%\selectlanguage{english}
+\selectlanguage{brazil}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+INSERIR A FICHA BIBLIOGRÁFICA
+% ---
+
+% ---
+% Inserir folha de aprovação
+% ---
+
+% Isto é um exemplo de Folha de aprovação, elemento obrigatório da NBR
+% 14724/2011 (seção 4.2.1.3). Você pode utilizar este modelo até a aprovação
+% do trabalho. Após isso, substitua todo o conteúdo deste arquivo por uma
+% imagem da página assinada pela banca com o comando abaixo:
+%
+% \includepdf{folhadeaprovacao_final.pdf}
+%
+\begin{folhadeaprovacao}
+
+  \begin{center}
+    {\ABNTEXchapterfont\large\imprimirautor}
+
+    \vspace*{\fill}\vspace*{\fill}
+    \begin{center}
+      \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+    \end{center}
+    \vspace*{\fill}
+    
+    \hspace{.45\textwidth}
+    \begin{minipage}{.5\textwidth}
+        \imprimirpreambulo
+    \end{minipage}%
+    \vspace*{\fill}
+   \end{center}
+        
+   Trabalho aprovado. \imprimirlocal, XX de XXXXXX de 2015:
+
+   \assinatura{\textbf{\imprimirorientador} \\ Orientador} 
+   \assinatura{\textbf{Professor} \\ Convidado 1}
+   \assinatura{\textbf{Professor} \\ Convidado 2}
+   %\assinatura{\textbf{Professor} \\ Convidado 3}
+   %\assinatura{\textbf{Professor} \\ Convidado 4}
+      
+   \begin{center}
+    \vspace*{0.5cm}
+    {\large\imprimirlocal}
+    \par
+    {\large\imprimirdata}
+    \vspace*{1cm}
+  \end{center}
+  
+\end{folhadeaprovacao}
+% ---
+
+% ---
+% Dedicatória
+% ---
+\begin{dedicatoria}
+   \vspace*{\fill}
+   \centering
+   \noindent
+   \textit{ INSERIR DEDICATÓRIA } \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% ---
+% Agradecimentos
+% ---
+\begin{agradecimentos}
+INSERIR AGRADECIMENTOS
+\end{agradecimentos}
+% ---
+
+% ---
+% Epígrafe
+% ---
+\begin{epigrafe}
+    \vspace*{\fill}
+	\begin{flushright}
+		\textit{ INSERIR EPÍGRAFE }
+	\end{flushright}
+\end{epigrafe}
+% ---
+
+% --
+% RESUMOS
+% ---
+
+% resumo em português
+\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\begin{resumo}
+ A pesquisa na área de sinais de eletromiografia (EMG) apresenta aplicações relevantes para controle de próteses mecânicas e diagnósticos de desordens neuromusculares. A segmentação dos sinais de EMG adquiridos nestas aplicações é parte essencial do preprocessamento, identificando trechos de interesse do sinal conhecidos como segmentos ativos e isolando potenciais de ação de unidades motoras. Neste estudo, dois métodos para segmentação de sinais de EMG foram implementadas em MATLAB. O primeiro método é baseado na detecção de picos de sinal, produzindo segmentos de comprimento constante. O segundo método baseia-se na detecção de pontos iniciais e finas dos segmentos ativos, produzindo segmentos de comprimento variável. Os trechos de sinais segmentados para ambos os métodos foram classificados de acordo com os movimentos realizados a partir de uma rede neural artificial treinada com dados do mesmo sujeito. Os resultados para acurácia de classificação mostram que [resultados aqui]. 
+
+ \textbf{Palavras-chave}: Eletromiografia. Segmentação. MATLAB. Base de dados NINAPRO.
+\end{resumo}
+
+% resumo em inglês
+\begin{resumo}[Abstract]
+ \begin{otherlanguage*}{english}
+   Research in the field of eletromyographic (EMG) signals are relevant for the control of mechanial prothesis and diagnosis of neuromuscular disorders. EMG signal segmentations play a key part of preprocessing in such applications, identifying active segments and isolating windows of motor unit action potentials. In this study, two segmentation methods were implemented in MATLAB. The first method is based on the detection of signal peaks and produces signal segments of constant length. The second method is based on the detection of beginning end ending points of active segments, producing segments of variable length. The segmented signals were then classified accordingly to the subject's movement by an artificial neural network trained with acquired data from the same subject. Results for classification accuracy show that [resultados aqui].
+
+   \vspace{\onelineskip}
+ 
+   \noindent 
+   \textbf{Keywords}: Eletromiography. Segmentation. MATLAB. NINAPRO database.
+ \end{otherlanguage*}
+\end{resumo}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\begin{siglas}
+  	\item[EMG] Eletromiografia
+	\item[MU] \emph{Motor Unit}
+  	\item[MUAP] \emph{Motor Unit Action Potencial}
+	\item[MUAPT] \emph{Motor Unit Action Potencial Trains}
+	\item[BEP] \emph{Beginning Extraction Point}
+	\item[EEP] \emph{End Extraction Point}
+\end{siglas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\chapter{Introdução}
+% ----------------------------------------------------------
+
+	Sinais de EMG apresentam crescente aplicações no controle de próteses mioelétricas. Por exemplo, (HARGROVE et al, 2013) mostra o controle de prótese de perna de um amputado acima do joelho direito, enquanto (JUN-UK CHU et al, 2007) apresentou bons resultados de reconhecimento de padrões de EMG para desenvolvimento de uma prótese multifuncional de mão. Em áreas não relacionadas à próteses, (CONSTANTINOS S. PATTICHIS et al, 1995) utiliza redes neurais artificiais para realização de diagnósticos clínicos de desordens neuromusculares. Outras qualidades musculares relacionados à fadiga e tônus também podem ser obtidas pelos sinais adquiridos.
+
+	As principais estratégias para controle das próteses mioelétricas baseiam-se no reconhecimento de padrões dos sinais de EMG com o uso de um método classificador para determinar os movimentos pretendidos pelo usuário da prótese. Os métodos de classificação utilizados incluem - entre inúmeros outros - redes neurais artificiais (HUDGINS et al,1993), classificador Bayesiano (ENGLEHART and HUDGINS, 2003), modelos de misturas de Gaussianas (HUANG et al, 2004) e lógicas \emph{fuzzy} (CHAN et al, 2000). Tais sistemas de classificação utilizam características de segmentos dos sinais como amplitude, número de cruzamentos por zero, coeficientes de autoregressão, transformadas de Fourier e, mais recentemente, transformadas Wavelet (JUN-UK CHU et al, 2007).
+
+	Como parte do preprocessamento do sinal e anterior à extração de parâmetros que são utilizados pelos algoritmos de classificação, é necessário segmentar os sinais de EMG adquiridos de modo a isolar trechos que contém sinais de EMG associados ao movimento pretendido.
+
+\section{Objetivos}
+
+	Este trabalho tem como objetivo implementar em MATLAB duas diferentes técnicas de segmentação automática de sinais de EMG. A primeira técnica é baseada no método utilizado em (KATSIS et al, 2003), que utiliza um valor de threshold de amplitude para detecção de picos de sinal e janelas de largura constante centradas em torno dos picos. A segunda técnica é baseada no utilizado por (CONSTANTINOS S. PATTICHIS et al, 1995), que identifica pontos de início (BEP - \emph{beginning extraction point}) e de fim (EEP - \emph{end extraction point}) dos segmentos a partir de janelas deslizantes com thresholds de amplitude e comprimento.
+
+	Os métodos serão aplicados em sinais da base de dados realizada por (LOPES, 2014), que contempla sinais de EMG de superfície provenientes do conjunto de sete músculos da região do antebraço, e na base de dados NINAPRO (ATZORI et al, 2012), que contém sinais de dez canais de EMG de superfície para 52 diferentes movimentos de mão e punho. Utilizando vetores de características dos sinais segmentados, uma rede neural artificial será treinada para classificar entre movimentos de interesse, realizando análise da influência do método de segmentação utilizado na taxa de acerto da classiicação.
+	
+% ---
+% Capitulo de revisão de literatura
+% ---
+\chapter{Referência Bibliográfica}
+% ---
+
+% ---
+\section{Eletromiografia}
+% ---
+
+\subsection{MUAPs e MUAP Trains}
+
+	Sinais de EMG podem ser adquiridos por sensores posicionados na superfície da pele ou por agulhas introduzidas no tecido muscular. Sinais de EMG são compostos por potenciais de ação de fibras musculares organizadas em unidades funcionais chamadas de "unidades motoras" (MU - \emph{Motor Unit}) (DE LUCA et al, 2006). Uma unidade motora é composta por um neurônio motor e as fibras musculares que ele inerva, e é a entidade fundamental que controla ativação de músculos estriados (BUCHTAL and SCHMALBRUCH, 1980). A soma algébrica dos potenciais de ação de todas as fibras de uma unidade motora é chamada de "potencial de ação da unidade motora", ou, em inglês, MUAP (\emph{Motor Unit Action Potential}) (ALMEIDA, 1997).
+
+	A Figura \ref{fig:MUAP_comp} apresenta a composição de uma MUAP a partir da soma dos potenciais das fibras de uma unidade motora. A Figura \ref{fig:MUAP_phases} exemplifica um sinal de MUAP e algumas de suas características básicas, como fases e amplitude.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth]{../img/MUAP_comp.PNG}
+\caption{Soma algébrica de potenciais de ação das \emph{n} fibras de uma unidade motora, formando uma MUAP \emph{h(t)}. Adaptado de BASMAJIAN e DE LUCA, 2006}
+\label{fig:MUAP_comp}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth]{../img/MUAP_phases.jpg}
+\caption{Exemplo de um sinal de MUAP, com algumas de suas características básicas indicadas. Adaptado de BARKHAUS et al, 2013}
+\label{fig:MUAP_phases}
+\end{figure}
+	
+	Dependendo do método utilizado para aquisição de EMG, é comum a captura da contribuição de mais de uma unidade motora no mesmo canal. A influência de uma unidade motora no sinal adquirido depende principalmente da distância das fibras musculares ao ponto de aquisição (HAMMARBERG and STERNAD, 2002). A Figura \ref{fig:MUAP_soma} apresenta um exemplo com três unidades motoras, cujas MUAPs somadas compõem o sinal adquirido. 
+	
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth]{../img/MUAP_soma.PNG}
+\caption{Os sinais de MUAP correspondentes a três diferentes unidades motoras somam-se para formar o sinal adquirido por um canal de EMG. Adaptado de HAMMARBERG and STERNAD, 2002}
+\label{fig:MUAP_soma}
+\end{figure}
+	
+	Sinais de EMG de longa duração são constituídos por sequências temporais de MUAPs, também conhecidas como MUAPTs (\emph{MUAP Trains}). A Figura \ref{fig:MUAP_trains} exemplifica MUAPTs de diferentes MUs que somam-se para formar um sinal de EMG de longa duração.
+	
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth]{../img/MUAP_trains.jpg}
+\caption{MUAPTs de diferentes MUs somam-se para compor o sinal adquirido por um canal de EMG. Adaptado de KLINE and DE LUCA, 2014}
+\label{fig:MUAP_trains}
+\end{figure}
+
+\subsection{Sinais de EMG associados a movimentos}
+
+TODO: DESCREVER MÉTODOS UTILIZADOS PARA ASSOCIAR OS SINAIS A MOVIMENTOS (REGRESSÃO UTILIZANDO SENSORES DE ACELEROMETRIA E GIROSCOPIA, REPETIÇÃO DE MOVIMENTOS EM VÍDEO)
+
+% ---
+\section{Descrição dos Métodos de Segmentação}
+% ---
+ 
+TODO: CRIAR FIGURAS EXPLICATIVAS PARA OS MÉTODOS
+
+	Esta seção descreve os princípios dos métodos de segmentação que foram utilizados para basear os métodos desenvolvidos neste estudo.
+ 
+\subsection{Método 1: detecção de picos de sinal e janelamento constante em torno dos picos}
+
+	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado threshold $T$ de amplitudes. Este threshold $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do threshold $T$ é dada por \ref{eq:thresholdKatsis}.
+
+\begin{equation}
+\label{eq:thresholdKatsis}
+  if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right)
+\end{equation}
+\begin{center}
+$then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|;$
+$else: T = \frac{max(x_i)}{5}$
+\end{center}
+
+	Onde $L$ é o comprimento total do sinal de EMG $x$. Uma janela de comprimento constante (no caso de KATSIS 2006, utilizou-se 121 amostras) é centrada em cada elemento do sinal $x$ que seja superior ao threshold T, e avalia-se se no interior da janela existe a ocorrência de valor de pico maior em amplitude que o pico original. Caso exista, este pico é o novo centro da janela e repete-se a verificação.
+
+	Com este método, os sinais segmentados obtidos serão sempre de comprimento temporal constante e centrados em elementos correspondentes a extremos locais do sinal.
+
+\subsection{Método 2: detecção de BEPs e EEPs}
+
+	Este método é inspirado no método de segmentação utilizado em (PATTICHIS et al, 1995). Primeiramente, determina-se uma janela deslizante de comprimento $L$ associada a um threshold de amplitudes $T$ (no trabalho original de PATTICHIS et al, 1995, o comprimento da janela era equivalente a 3 $ms$ e o threshold era de $\pm$ 40 $\mu V$). Utilizando esta janela encontram-se os pontos do sinal chamados de BEP e EEP, ou simplesmente início e fim dos segmentos, de modo a atender as seguintes relações:
+
+\begin{itemize}
+\item{BEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à esquerda permanecem menores que o threshold $T$;}
+\item{EEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à direita permanecem menores que o threshold $T$.}
+\end{itemize}
+
+	Para trechos consecutivos de elementos do sinal que atendem os critérios acima, o BEP escolhido deve ser o elemento mais à direita e o EEP deve ser o elemento mais à esquerda. BEPs e EEPs ocorrem de forma intercalada ao longo do sinal.
+	
+	Com este método, os sinais segmentados obtidos serão de comprimento variável, dependendo da duração do movimento realizado.
+% ---
+\section{Redes Neurais Artificias}
+% ---
+
+	TODO: REVISÃO SOBRE REDES NEURAIS
+
+% ---
+% Capitulo de Metodologia
+% ---
+\chapter{Metodologia Experimental}
+% ---
+
+\section{Aquisição de sinais}
+
+	TODO: EXPLICAR COMO FORAM ADQUIRIDOS OS SINAIS DE (LOPES, 2014) E OS SINAIS DA BASE DE DADOS NINAPRO (ATZORI et al, 2012)
+
+\section{Preprocessamento}
+
+	TODO: RETIFICAÇÃO E FILTRAGEM DIGITAL DOS SINAIS
+
+% ---
+\section{Implementação dos Métodos de Segmentação}
+% ---
+
+	TODO: CÓDIGOS MATLAB
+
+% ---
+\section{Treinamento da Rede Neural Artificial}
+% ---
+
+	TODO: DESCRIÇÃO DOS VETORES DE PARÂMETROS UTILIZADOS
+	TODO: IMPLEMENTAÇÃO DA REDE EM MATLAB
+
+% ---
+% Resultados
+% ---
+\chapter{Resultados e Discussões}
+% ---
+
+
+% ----------------------------------------------------------
+% Finaliza a parte no bookmark do PDF
+% para que se inicie o bookmark na raiz
+% e adiciona espaço de parte no Sumário
+% ----------------------------------------------------------
+\phantompart
+
+% ---
+% Conclusão
+% ---
+\chapter{Conclusão}
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+% ----------------------------------------------------------
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{abntex2-modelo-references}
+
+\end{document}
