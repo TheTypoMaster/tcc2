@@ -400,7 +400,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Métodos de Segmentação}
 % ---
 
-	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais. Para as definições dos métodos 3 e 4 (MTD3 e MTD4) são utilizados os termos BEP (\emph{beginning extraction point}, ponto inicial de um segmento)  e EEP (\emph{ending extraction point}, ponto final de um segmento), também utilizados em (PATTICHIS et al, 1995).
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais. Para as definições dos métodos 3 e 4 (MTD3 e MTD4) são utilizados os termos BEP (\emph{beginning extraction point}, ponto inicial de um segmento) e EEP (\emph{ending extraction point}, ponto final de um segmento), também utilizados em (PATTICHIS et al, 1995).
 	
 % ---
 \subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos de comprimento constante}
@@ -418,6 +418,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	Nome & Descrição \\
 	\midrule \midrule
 	$x$ & Sinal a ser segmentado \\
+	\midrule
 	$L$ & Comprimento total do sinal a ser segmentado \\
 	\midrule
 	$l$ & Comprimento desejado para os segmentos \\
@@ -582,7 +583,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	\gamma = \sum_{i=w_0+1}^{W}(x_i - x_{i-1})
 \end{equation}
 	
-	Nota-se que as equações \ref{eq:decMedia} e \ref{eq:varTotal} diferem somente pela divisão pelo comprimento da janela $W$ em \ref{eq:decMedia}. Com valores adequados para os limites $B$ e $C$, o MTD3 pode ser implementado utilizando apenas uma destas equações. A Figura \ref{fig:mtd3example} exemplifica uma janela deslizante que determina BEPs e EEPs de segmentos utilizando o MTD3.
+	Nota-se que as equações \ref{eq:decMedia} e \ref{eq:varTotal} diferem somente pela divisão pelo comprimento da janela $W$ em \ref{eq:decMedia}. Com valores adequados para os limites $B$ e $C$, o MTD3 pode ser implementado utilizando apenas uma destas equações. A Figura \ref{fig:mtd3ex} exemplifica uma janela deslizante que determina BEPs e EEPs de segmentos utilizando o MTD3.
 	
 \begin{figure}
 \centering
