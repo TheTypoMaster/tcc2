@@ -495,7 +495,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \begin{table}[htb]
 \IBGEtab{%
 	\caption{Parâmetros utilizados para definir MTD2}%
-	\label{tab:mtd1params}
+	\label{tab:mtd2params}
 }{%
 	\begin{tabular}{ccc}
 	\toprule
@@ -521,7 +521,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 
 \begin{equation}
 \label{eq:thKatsisCond}
-	if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right); then T = \frac{5}{L}\sum_{i=1}^{L}|x_i|; else: T = \frac{max(x_i)}{5}
+	if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right); then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|; else: T = \frac{max(x_i)}{5}
 \end{equation}
 
 	De forma similar ao MTD1, os pontos do sinal que tiverem valor acima de $T$ são considerados possíveis candidatos para centros de segmentos. Para os possíveis candidatos que estiverem afastados de uma distância inferior a $l$, apenas o candidato de maior amplitude é considerado. Em (KATSIS et al, 2006) utilizou-se comprimento $l$ de 121 amostras.
