@@ -383,48 +383,53 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Métodos de Segmentação}
 % ---
 
-	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que mneumônicos utilizados para nomear parâmetros (e.g. `$r$', `$q$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que mneumônicos utilizados para nomear variáveis e parâmetros (e.g. `$r$', `$th$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
 	
 \subsection{Método 1}
 
 	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). Os mneumônicos da Tabela \ref{tab:mtd1menumon} serão utilizados para descrever este método.
 	
 \begin{table}[htb]
-\ABNTEXfontereduzida
-\caption[Níveis de investigação]{Níveis de investigação.}
-\label{tab-nivinv}
-\begin{tabular}{p{2.6cm}|p{6.0cm}|p{2.25cm}|p{3.40cm}}
-  %\hline
-   \textbf{Nível de Investigação} & \textbf{Insumos}  & \textbf{Sistemas de Investigação}  & \textbf{Produtos}  \\
-    \hline
-    Meta-nível & Filosofia\index{filosofia} da Ciência  & Epistemologia &
-    Paradigma  \\
-    \hline
-    Nível do objeto & Paradigmas do metanível e evidências do nível inferior &
-    Ciência  & Teorias e modelos \\
-    \hline
-    Nível inferior & Modelos e métodos do nível do objeto e problemas do nível inferior & Prática & Solução de problemas  \\
-   % \hline
-\end{tabular}
-\legend{Fonte: \citeonline{van86}}
+\IBGEtab{%
+  \caption{Um Exemplo de tabela alinhada que pode ser longa
+  ou curta, conforme padrão IBGE.}%
+  \label{tabela-ibge}
+}{%
+  \begin{tabular}{ccc}
+  \toprule
+   Nome & Nascimento & Documento \\
+  \midrule \midrule
+   Maria da Silva & 11/11/1111 & 111.111.111-11 \\
+  \midrule 
+   João Souza & 11/11/2111 & 211.111.111-11 \\
+  \midrule 
+   Laura Vicuña & 05/04/1891 & 3111.111.111-11 \\
+  \bottomrule
+\end{tabular}%
+}{%
+  \fonte{Produzido pelos autores.}%
+  \nota{Esta é uma nota, que diz que os dados são baseados na
+  regressão linear.}%
+  \nota[Anotações]{Uma anotação adicional, que pode ser seguida de várias
+  outras.}%
+  }
 \end{table}
-
 	
-	Inicialmente, determina-se o valor de \emph{threshold} $t_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $t_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $t_{k-1}$ (equação \ref{eq:mtd1tk}).
+	Inicialmente, determina-se o valor de \emph{threshold} $th_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $th_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $th_{k-1}$ (equação \ref{eq:mtd1tk}).
 	
 \begin{equation}
 \label{eq:mtd1t0}
-  t_0 = max(x)
+  th_0 = max(x)
 \end{equation}
 
 \begin{equation}
 \label{eq:mtd1t0}
-  t_k = q \times t_{k-1}
+  th_k = q \times th_{k-1}
 \end{equation}
 
-	Pontos do sinal que encontram-se acima do valor de $t_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
+	Pontos do sinal que encontram-se acima do valor de $th_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
 	
-	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos e o comprimento total do sinal (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $t_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
+	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos e o comprimento total do sinal (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $th_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
 	
 \begin{equation}
 \label{eq:mtd1rk}
