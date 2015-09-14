@@ -472,6 +472,8 @@ INSERIR A FICHA BIBLIOGRÁFICA
     \path [line] (decide) -| node [near start] {NÃO} (update);
     \path [line] (update) |- (identify);
     \path [line] (decide) -- node {SIM}(stop);
+	
+	\label{fig:mtd1flux}
 \end{tikzpicture}
 	
 	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% (isto é, $T_k = 0.9\times T_{k-1}$) e segmentos de comprimento $l$ de 400 amostras.
