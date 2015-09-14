@@ -469,7 +469,6 @@ INSERIR A FICHA BIBLIOGRÁFICA
     % Draw edges
     \path [line] (init) -- (identify);
     \path [line] (identify) -- (decide);
-    \path [line] (evaluate) -- (decide);
     \path [line] (decide) -| node [near start] {NÃO} (update);
     \path [line] (update) |- (identify);
     \path [line] (decide) -- node {SIM}(stop);
