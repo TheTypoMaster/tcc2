@@ -387,10 +387,10 @@ INSERIR A FICHA BIBLIOGRÁFICA
  
 \subsection{Método 1: detecção de picos de sinal e janelamento constante em torno dos picos}
 
-	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado \emph{threshold} $T$ de amplitudes. Este \emph{threshold} $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do \emph{threshold} $T$ é dada por \ref{eq:\emph{threshold}Katsis}.
+	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado \emph{threshold} $T$ de amplitudes. Este \emph{threshold} $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do \emph{threshold} $T$ é dada por \ref{eq:thKatsis}.
 
 \begin{equation}
-\label{eq:\emph{threshold}Katsis}
+\label{eq:thKatsis}
   if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right)
 \end{equation}
 \begin{center}
