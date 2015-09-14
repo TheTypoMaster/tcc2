@@ -404,7 +404,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	\midrule
 	$TH_k$ & Valor de \emph{threshold} para a iteração $k$ \\
 	\midrule 
-	$q$ & Fração de $Th_{k-1}$ para determinação de $TH_k$ \\
+	$q$ & Fração de $TH_{k-1}$ para determinação de $TH_k$ \\
 	\midrule 
 	$NC_{k}$ & Número total de candidatos para centros de segmentos identificados na iteração $k$ \\
 	\midrule 
@@ -418,21 +418,21 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Inicialmente, determina-se o valor de \emph{threshold} $Th_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $TH_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $Th_{k-1}$ (equação \ref{eq:mtd1tk}).
+	Inicialmente, determina-se o valor de \emph{threshold} $TH_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $TH_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $TH_{k-1}$ (equação \ref{eq:mtd1tk}).
 	
 \begin{equation}
 \label{eq:mtd1t0}
-  Th_0 = max(x)
+  TH_0 = max(x)
 \end{equation}
 
 \begin{equation}
 \label{eq:mtd1t0}
-  TH_k = q \times Th_{k-1}
+  TH_k = q \times TH_{k-1}
 \end{equation}
 
 	Pontos do sinal que encontram-se acima do valor de $TH_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
 	
-	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos $NC_{k}$ e o comprimento total do sinal $L$ (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $Th_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
+	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos $NC_{k}$ e o comprimento total do sinal $L$ (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $TH_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
 	
 \begin{equation}
 \label{eq:mtd1rk}
