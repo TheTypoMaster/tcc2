@@ -402,7 +402,9 @@ INSERIR A FICHA BIBLIOGRÁFICA
 
 	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
 	
+% ---
 \subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos de comprimento constante}
+% ---
 
 	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). As variáveis e constantes da Tabela \ref{tab:mtd1params} serão utilizados para descrever este método.
 	
@@ -418,7 +420,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	$x$ & Sinal a ser segmentado \\
 	$L$ & Comprimento total do sinal a ser segmentado \\
 	\midrule
-	$l$ & Comprimento desejado para segmentos \\
+	$l$ & Comprimento desejado para os segmentos \\
 	\midrule
 	$T_k$ & Valor de \emph{threshold} para a iteração $k$ \\
 	\midrule 
@@ -436,7 +438,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado $x$ (equação \ref{eq:mtd1t0}). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação \ref{eq:mtd1tk}).
+	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado $x$ (equação \ref{eq:mtd1t0}). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação \ref{eq:mtd1tk}). No trabalho de (CHAUVET et al, 2001), este valor $q$ é de 90\%.
 	
 \begin{equation}
 \label{eq:mtd1t0}
@@ -457,7 +459,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
   r_k = \frac{N_{k}}{L} 
 \end{equation}
 	
-	A Figura \ref{fig:mtd1flux} apresenta um fluxograma para as iterações do MTD1.
+	O seguinte fluxograma resume os passos realizados para segmentação pelo MTD1.
 	
 \begin{tikzpicture}[node distance = 2cm, auto]
     % Place nodes
@@ -476,32 +478,63 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	\label{fig:mtd1flux}
 \end{tikzpicture}
 	
-	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% (isto é, $T_k = 0.9\times T_{k-1}$) e segmentos de comprimento $l$ de 400 amostras.
+	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% (isto é, $T_k = 0.9\times T_{k-1}$) e segmentos de comprimento $l$ de 401 amostras.
  
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{./img/mtd1example.eps}
-\caption{Ilustração da implementação do MTD1, com $q = 0.9$ e $l = 400$. Do autor.}
+\caption{Ilustração da implementação do MTD1, com $q = 0.9$ e $l = 401$. Do autor.}
 \label{fig:mtd1example}
 \end{figure}
  
-\subsection{Método 2: detecção de picos de sinal e janelamento constante em torno dos picos}
-
-	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado \emph{threshold} $T$ de amplitudes. Este \emph{threshold} $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do \emph{threshold} $T$ é dada por \ref{eq:thKatsis}.
+% ---
+\subsection{Método 2 (MTD1) - método não iterativo para detecção de centros de segmentos de comprimento constante}
+% ---
+	Este é o método de segmentação utilizado em (KATSIS et al, 2006). As variáveis e constantes da Tabela \ref{tab:mtd2params} serão utilizados para descrever este método. 
+	
+\begin{table}[htb]
+\IBGEtab{%
+	\caption{Parâmetros utilizados para definir MTD2}%
+	\label{tab:mtd1params}
+}{%
+	\begin{tabular}{ccc}
+	\toprule
+	Nome & Descrição \\
+	\midrule \midrule
+	$x$ & Sinal a ser segmentado \\
+	\midrule
+	$L$ & Comprimento total do sinal a ser segmentado \\
+	\midrule
+	$l$ & Comprimento desejado para os segmentos \\
+	\midrule
+	$T$ & Valor de \emph{threshold} \\
+%	\midrule
+%	$a$ & Coeficiente a ser utilizado para cálculo de $T$ \\
+	\bottomrule
+\end{tabular}%
+}{%
+	\fonte{Do autor.}%
+}
+\end{table}
+	
+	Primeiramente, calcula-se o valor de \emph{threshold} $T$ a partir da média, do comprimento $L$ e do valor máximo do sinal a ser segmentado $x$. No trabalho de (KATSIS et al, 2006), a relação utilizada para cálculo de $T$ é dada por \ref{eq:thKatsisCond}.
 
 \begin{equation}
-\label{eq:thKatsis}
-  if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right)
+\label{eq:thKatsisCond}
+	if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right); then T = \frac{5}{L}\sum_{i=1}^{L}|x_i|; else: T = \frac{max(x_i)}{5}
 \end{equation}
-\begin{center}
-$then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|;$
-$else: T = \frac{max(x_i)}{5}$
-\end{center}
 
-	Onde $L$ é o comprimento total do sinal de EMG $x$. Uma janela de comprimento constante (no caso de KATSIS 2006, utilizou-se 121 amostras) é centrada em cada elemento do sinal $x$ que seja superior ao \emph{threshold} T, e avalia-se se no interior da janela existe a ocorrência de valor de pico maior em amplitude que o pico original. Caso exista, este pico é o novo centro da janela e repete-se a verificação.
+	De forma similar ao MTD1, os pontos do sinal que tiverem valor acima de $T$ são considerados possíveis candidatos para centros de segmentos. Para os possíveis candidatos que estiverem afastados de uma distância inferior a $l$, apenas o candidato de maior amplitude é considerado. Em (KATSIS et al, 2006) utilizou-se comprimento $l$ de 121 amostras.
+	
+	Para ilustrar o MTD2, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com segmentos de comprimento $l$ de 401 amostras. O valor de \emph{threshold} T para este exemplo é calculado como $T = \frac{max(x_i)}{5}$, já que o máximo absoluto do sinal é menor que trinta vezes a média do sinal.
 
-	Com este método, os sinais segmentados obtidos serão sempre de comprimento temporal constante e centrados em elementos correspondentes a extremos locais do sinal.
-
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{./img/mtd2example.eps}
+\caption{Ilustração da implementação do MTD2, com $l = 401$. Do autor.}
+\label{fig:mtd1example}
+\end{figure}
+	
 \subsection{Método 2: detecção de BEPs e EEPs}
 
 	Este método é inspirado no método de segmentação utilizado em (PATTICHIS et al, 1995). Primeiramente, determina-se uma janela deslizante de comprimento $L$ associada a um \emph{threshold} de amplitudes $T$ (no trabalho original de PATTICHIS et al, 1995, o comprimento da janela era equivalente a 3 $ms$ e o \emph{threshold} era de $\pm$ 40 $\mu V$). Utilizando esta janela encontram-se os pontos do sinal chamados de BEP e EEP, ou simplesmente início e fim dos segmentos, de modo a atender as seguintes relações:
