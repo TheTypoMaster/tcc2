@@ -400,7 +400,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Métodos de Segmentação}
 % ---
 
-	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais. Para as definições dos métodos 3 e 4 (MTD3 e MTD4) são utilizados os termos BEP (\emph{beginning extraction point}, ponto inicial de um segmento)  e EEP (\emph{ending extraction point}, ponto final de um segmento), também utilizados em (PATTICHIS et al, 1995).
 	
 % ---
 \subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos de comprimento constante}
@@ -488,7 +488,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \end{figure}
  
 % ---
-\subsection{Método 2 (MTD1) - método não iterativo para detecção de centros de segmentos de comprimento constante}
+\subsection{Método 2 (MTD2) - método não iterativo para detecção de centros de segmentos de comprimento constante}
 % ---
 	Este é o método de segmentação utilizado em (KATSIS et al, 2006). As variáveis e constantes da Tabela \ref{tab:mtd2params} serão utilizados para descrever este método. 
 	
@@ -508,8 +508,6 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	$l$ & Comprimento desejado para os segmentos \\
 	\midrule
 	$T$ & Valor de \emph{threshold} \\
-%	\midrule
-%	$a$ & Coeficiente a ser utilizado para cálculo de $T$ \\
 	\bottomrule
 \end{tabular}%
 }{%
@@ -521,12 +519,12 @@ INSERIR A FICHA BIBLIOGRÁFICA
 
 \begin{equation}
 \label{eq:thKatsisCond}
-	if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right); then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|; else: T = \frac{max(x_i)}{5}
+	if\left(max(x) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right); then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|; else: T = \frac{max(x)}{5}
 \end{equation}
 
 	De forma similar ao MTD1, os pontos do sinal que tiverem valor acima de $T$ são considerados possíveis candidatos para centros de segmentos. Para os possíveis candidatos que estiverem afastados de uma distância inferior a $l$, apenas o candidato de maior amplitude é considerado. Em (KATSIS et al, 2006) utilizou-se comprimento $l$ de 121 amostras.
 	
-	Para ilustrar o MTD2, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com segmentos de comprimento $l$ de 401 amostras. O valor de \emph{threshold} T para este exemplo é calculado como $T = \frac{max(x_i)}{5}$, já que o máximo absoluto do sinal é menor que trinta vezes a média do sinal.
+	A Figura \ref{fig:mtd1example} serve para ilustrar o MTD2, apresentando uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com segmentos de comprimento $l$ de 401 amostras. O valor de \emph{threshold} T para este exemplo é calculado como $T = \frac{max(x_i)}{5}$, já que o máximo absoluto do sinal é menor que trinta vezes a média do sinal.
 
 \begin{figure}
 \centering
@@ -535,18 +533,69 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \label{fig:mtd1example}
 \end{figure}
 	
-\subsection{Método 2: detecção de BEPs e EEPs}
+% ---
+\subsection{Método 3 (MTD3): método com janela deslizante para detecção de BEP e EEP de segmentos utilizando variação total}
+% ---
 
-	Este método é inspirado no método de segmentação utilizado em (PATTICHIS et al, 1995). Primeiramente, determina-se uma janela deslizante de comprimento $L$ associada a um \emph{threshold} de amplitudes $T$ (no trabalho original de PATTICHIS et al, 1995, o comprimento da janela era equivalente a 3 $ms$ e o \emph{threshold} era de $\pm$ 40 $\mu V$). Utilizando esta janela encontram-se os pontos do sinal chamados de BEP e EEP, ou simplesmente início e fim dos segmentos, de modo a atender as seguintes relações:
-
-\begin{itemize}
-\item{BEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à esquerda permanecem menores que o \emph{threshold} $T$;}
-\item{EEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à direita permanecem menores que o \emph{threshold} $T$.}
-\end{itemize}
-
-	Para trechos consecutivos de elementos do sinal que atendem os critérios acima, o BEP escolhido deve ser o elemento mais à direita e o EEP deve ser o elemento mais à esquerda. BEPs e EEPs ocorrem de forma intercalada ao longo do sinal.
+	Este é o método de segmentação utilizado em (GUT and MOSCHYTZ, 2000). As variáveis e constantes da Tabela \ref{tab:mtd3params} serão utilizados para descrever este método.
 	
-	Com este método, os sinais segmentados obtidos serão de comprimento variável, dependendo da duração do movimento realizado.
+\begin{table}[htb]
+\IBGEtab{%
+	\caption{Parâmetros utilizados para definir MTD2}%
+	\label{tab:mtd2params}
+}{%
+	\begin{tabular}{ccc}
+	\toprule
+	Nome & Descrição \\
+	\midrule \midrule
+	$x$ & Sinal a ser segmentado \\
+	\midrule
+	$W$ & Comprimento da janela deslizante utilizada pelo método \\
+	\midrule
+	$w_0$ & Número da amostra mais a esquerda da janela. Determina a posição instantânea da janela
+	\midrule
+	$\beta$ & Declividade média do sinal $x$ contido na janela deslizante
+	\midrule
+	$B$ & Valor limite para declividade média que determina ponto inicial de um segmento\\
+	\midrule
+	$\gamma$ & Variação total do sinal $x$ contido na janela deslizante
+	\midrule
+	$C$ & Valor limite para variação total que determina ponto final de um segmento\\
+	\bottomrule
+\end{tabular}%
+}{%
+	\fonte{Do autor.}%
+}
+\end{table}
+	
+	Uma janela deslizante de comprimento $W$ percorre o sinal da esquerda para a direita. Caso a declividade média $\beta$ do trecho de sinal contido pela janela, calculado pela equação \ref{eq:decMedia}, exceda um limite $B$, o ponto mais à esquerda da janela $w_0$ determina a BEP de um segmento.
+	
+\begin{equation}
+\label{eq:decMedia}
+	\beta = frac{1}{W}\sum_{i=w_0+1}^{W}(x_i - x_{i-1})
+\end{equation}
+	
+	O EEP do correspondente segmento é então obtido como o ponto mais à direita da janela ($w_0 + W - 1$) quando a variação total \gamma, dado pela equação \ref{eq:varTotal}, do trecho de sinal contido pela janela for menor que um limite $C$.
+
+\begin{equation}
+\label{eq:varTotal}
+	\gamma = \sum_{i=w_0+1}^{W}(x_i - x_{i-1})
+\end{equation}
+	
+	Nota-se que as equações \ref{eq:decMedia} e \ref{eq:varTotal} diferem somente pela divisão pelo comprimento da janela $W$ em \ref{eq:decMedia}. Com valores adequados para os limites $B$ e $C$, o MTD3 pode ser implementado utilizando apenas uma destas equações. A Figura \ref{fig:mtd3example} exemplifica uma janela deslizante que determina BEPs e EEPs de segmentos utilizando o MTD3.
+	
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{./img/mtd3ex.png}
+\caption{Ilustração da implementação do MTD3, com $W = 100$. Do autor.}
+\label{fig:mtd1example}
+\end{figure}
+	
+% ---
+\subsection{Método 4 (MTD4): método para detecção de início e fim de segmentos utilizando \emph{thresholding} de amplitudes}
+% ---
+
+
 % ---
 \section{Redes Neurais Artificias}
 % ---
