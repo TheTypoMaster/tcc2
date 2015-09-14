@@ -439,7 +439,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado $x$ (equação \ref{eq:mtd1t0}). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação \ref{eq:mtd1tk}). No trabalho de (CHAUVET et al, 2001), este valor $q$ é de 90\%.
+	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado $x$ (equação (\ref{eq:mtd1t0})). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação (\ref{eq:mtd1tk})). No trabalho de (CHAUVET et al, 2001), este valor $q$ é de 90\%.
 	
 \begin{equation}
 \label{eq:mtd1t0}
@@ -516,7 +516,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Primeiramente, calcula-se o valor de \emph{threshold} $T$ a partir da média, do comprimento $L$ e do valor máximo do sinal a ser segmentado $x$. No trabalho de (KATSIS et al, 2006), a relação utilizada para cálculo de $T$ é dada por \ref{eq:thKatsisCond}.
+	Primeiramente, calcula-se o valor de \emph{threshold} $T$ a partir da média, do comprimento $L$ e do valor máximo do sinal a ser segmentado $x$. No trabalho de (KATSIS et al, 2006), a relação utilizada para cálculo de $T$ é dada em (\ref{eq:thKatsisCond}).
 
 \begin{equation}
 \label{eq:thKatsisCond}
@@ -569,21 +569,21 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Uma janela deslizante de comprimento $W$ percorre o sinal da esquerda para a direita. Caso a declividade média $\beta$ do trecho de sinal contido pela janela, calculado pela equação \ref{eq:decMedia}, exceda um limite $B$, o ponto mais à esquerda da janela $w_0$ determina a BEP de um segmento.
+	Uma janela deslizante de comprimento $W$ percorre o sinal da esquerda para a direita. Caso a declividade média $\beta$ do trecho de sinal contido pela janela, calculado pela equação (\ref{eq:decMedia}), exceda um limite $B$, o ponto mais à esquerda da janela $w_0$ determina a BEP de um segmento.
 	
 \begin{equation}
 \label{eq:decMedia}
 	\beta = \frac{1}{W}\sum_{i=w_0+1}^{W}(x_i - x_{i-1})
 \end{equation}
 	
-	O EEP do correspondente segmento é então obtido como o ponto mais à direita da janela ($w_0 + W - 1$) quando a variação total $\gamma$, dado pela equação \ref{eq:varTotal}, do trecho de sinal contido pela janela for menor que um limite $C$.
+	O EEP do correspondente segmento é então obtido como o ponto mais à direita da janela ($w_0 + W - 1$) quando a variação total $\gamma$, dado pela equação (\ref{eq:varTotal}), do trecho de sinal contido pela janela for menor que um limite $C$.
 
 \begin{equation}
 \label{eq:varTotal}
 	\gamma = \sum_{i=w_0+1}^{W}(x_i - x_{i-1})
 \end{equation}
 	
-	Nota-se que as equações \ref{eq:decMedia} e \ref{eq:varTotal} diferem somente pela divisão pelo comprimento da janela $W$ em \ref{eq:decMedia}. Com valores adequados para os limites $B$ e $C$, o MTD3 pode ser implementado utilizando apenas uma destas equações. A Figura \ref{fig:mtd3example} exemplifica uma janela deslizante que determina BEPs e EEPs de segmentos utilizando o MTD3.
+	Nota-se que as equações (\ref{eq:decMedia}) e (\ref{eq:varTotal}) diferem somente pela divisão pelo comprimento da janela $W$ em (\ref{eq:decMedia}). Com valores adequados para os limites $B$ e $C$, o MTD3 pode ser implementado utilizando apenas uma destas equações. A Figura \ref{fig:mtd3example} exemplifica uma janela deslizante que determina BEPs e EEPs de segmentos utilizando o MTD3.
 	
 \begin{figure}
 \centering
