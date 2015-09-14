@@ -462,10 +462,10 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \begin{tikzpicture}[node distance = 2cm, auto]
     % Place nodes
     \node [block] (init) {INÍCIO\\$k = 0$\\$T_0 = max(x)$};
-    \node [block, below of=init] (identify) {identificar candidatos a centros de segmentos};
+    \node [block, below of=init, node distance=3cm] (identify) {identificar candidatos a centros de segmentos};
     \node [decision, below of=identify] (decide) {$\frac{N_c}{L} >= r_{target}$};
-	\node [block, left of=identify, node distance=9cm] (update) {$k++$\\$T_k = q \times T_{k-1}$};
-    \node [block, below of=decide, node distance=9cm] (stop) {Segmentos de comprimento $l$ centrados nos candidatos identificados \\ FIM};
+	\node [block, left of=identify, node distance=6cm] (update) {$k++$\\$T_k = q \times T_{k-1}$};
+    \node [block, below of=decide, node distance=6cm] (stop) {Segmentos de comprimento $l$ centrados nos candidatos identificados \\ FIM};
     % Draw edges
     \path [line] (init) -- (identify);
     \path [line] (identify) -- (decide);
