@@ -14,8 +14,8 @@
 \contentsline {section}{\numberline {2.2}M\IeC {\'e}todos de Segmenta\IeC {\c c}\IeC {\~a}o}{17}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}M\IeC {\'e}todo 1 (MTD1) - m\IeC {\'e}todo iterativo para detec\IeC {\c c}\IeC {\~a}o de centros de segmentos de comprimento constante}{18}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}M\IeC {\'e}todo 2 (MTD2) - m\IeC {\'e}todo n\IeC {\~a}o iterativo para detec\IeC {\c c}\IeC {\~a}o de centros de segmentos de comprimento constante}{19}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}M\IeC {\'e}todo 3 (MTD3): m\IeC {\'e}todo com janela deslizante para detec\IeC {\c c}\IeC {\~a}o de BEP e EEP de segmentos utilizando varia\IeC {\c c}\IeC {\~a}o total}{21}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}M\IeC {\'e}todo 4 (MTD4): m\IeC {\'e}todo com janela deslizante para detec\IeC {\c c}\IeC {\~a}o de BEP e EEP de segmentos utilizando \emph {threshold}}{22}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.3}M\IeC {\'e}todo 3 (MTD3) - m\IeC {\'e}todo com janela deslizante para detec\IeC {\c c}\IeC {\~a}o de BEP e EEP de segmentos utilizando varia\IeC {\c c}\IeC {\~a}o total}{21}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}M\IeC {\'e}todo 4 (MTD4) - m\IeC {\'e}todo com janela deslizante para detec\IeC {\c c}\IeC {\~a}o de BEP e EEP de segmentos utilizando \emph {threshold}}{22}{subsection.2.2.4}
 \contentsline {section}{\numberline {2.3}Redes Neurais Artificias}{23}{section.2.3}
 \setlength {\cftchapterindent }{0em} \setlength {\cftchapternumwidth }{\cftlastnumwidth }
 \contentsline {chapter}{\chapternumberline {3}\MakeTextUppercase {CAP\IeC {\'I}TULO TEMPOR\IeC {\'A}RIO: orienta\IeC {\c c}\IeC {\~a}o}}{24}{chapter.3}
