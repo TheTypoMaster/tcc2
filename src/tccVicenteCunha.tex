@@ -415,6 +415,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	\toprule
 	Nome & Descrição \\
 	\midrule \midrule
+	$x$ & Sinal a ser segmentado \\
 	$L$ & Comprimento total do sinal a ser segmentado \\
 	\midrule
 	$l$ & Comprimento desejado para segmentos \\
@@ -435,7 +436,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 }
 \end{table}
 	
-	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação \ref{eq:mtd1tk}).
+	Inicialmente, determina-se o valor de \emph{threshold} $T_0$ equivalente ao máximo absoluto do sinal a ser segmentado $x$ (equação \ref{eq:mtd1t0}). O valor $T_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $T_{k-1}$ (equação \ref{eq:mtd1tk}).
 	
 \begin{equation}
 \label{eq:mtd1t0}
@@ -447,7 +448,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
   T_k = q \times T_{k-1}
 \end{equation}
 
-	Pontos do sinal que encontram-se acima do valor de $T_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
+	Pontos do sinal acima do valor de $T_k$ são possíveis candidatos para centros de segmentos. Caso exista mais de um possível candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
 	
 	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos $N_{k}$ e o comprimento total do sinal $L$ (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_{target}$, calcula-se $T_{k+1}$ para realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_{target}$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
 	
@@ -456,28 +457,22 @@ INSERIR A FICHA BIBLIOGRÁFICA
   r_k = \frac{N_{k}}{L} 
 \end{equation}
 	
-	O fluxograma da Figura \ref{fig:mtd1flux} representa graficamente este método.
+	A Figura \ref{fig:mtd1flux} apresenta um fluxograma para as iterações do MTD1.
 	
 \begin{tikzpicture}[node distance = 2cm, auto]
     % Place nodes
-    \node [block] (init) {initialize model};
-    \node [cloud, left of=init] (expert) {expert};
-    \node [cloud, right of=init] (system) {system};
-    \node [block, below of=init] (identify) {identify candidate models};
-    \node [block, below of=identify] (evaluate) {evaluate candidate models};
-    \node [block, left of=evaluate, node distance=3cm] (update) {update model};
-    \node [decision, below of=evaluate] (decide) {is best candidate better?};
-    \node [block, below of=decide, node distance=3cm] (stop) {stop};
+    \node [block] (init) {INÍCIO\\$k = 0$\\$T_0 = max(x)$};
+    \node [block, below of=init] (identify) {identificar candidatos a centros de segmentos};
+    \node [decision, below of=identify] (decide) {$\frac{N_c}{L} >= r_{target}$};
+	\node [block, left of=identify, node distance=3cm] (update) {$k++$\\$T_k = q \times T_{k-1}$};
+    \node [block, below of=decide, node distance=3cm] (stop) {Segmentos de comprimento $l$ centrados nos candidatos identificados \\ FIM};
     % Draw edges
     \path [line] (init) -- (identify);
-    \path [line] (identify) -- (evaluate);
+    \path [line] (identify) -- (decide);
     \path [line] (evaluate) -- (decide);
-    \path [line] (decide) -| node [near start] {yes} (update);
+    \path [line] (decide) -| node [near start] {NÃO} (update);
     \path [line] (update) |- (identify);
-    \path [line] (decide) -- node {no}(stop);
-    \path [line,dashed] (expert) -- (init);
-    \path [line,dashed] (system) -- (init);
-    \path [line,dashed] (system) |- (evaluate);
+    \path [line] (decide) -- node {SIM}(stop);
 \end{tikzpicture}
 	
 	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% (isto é, $T_k = 0.9\times T_{k-1}$) e segmentos de comprimento $l$ de 400 amostras.
