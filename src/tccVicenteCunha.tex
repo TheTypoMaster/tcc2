@@ -406,7 +406,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos de comprimento constante}
 % ---
 
-	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). As variáveis e constantes da Tabela \ref{tab:mtd1params} serão utilizados para descrever este método.
+	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). As definições da Tabela \ref{tab:mtd1params} serão utilizados para descrever este método.
 	
 \begin{table}[htb]
 \IBGEtab{%
@@ -491,7 +491,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 % ---
 \subsection{Método 2 (MTD2) - método não iterativo para detecção de centros de segmentos de comprimento constante}
 % ---
-	Este é o método de segmentação utilizado em (KATSIS et al, 2006). As variáveis e constantes da Tabela \ref{tab:mtd2params} serão utilizados para descrever este método. 
+	Este é o método de segmentação utilizado em (KATSIS et al, 2006). As definições da Tabela \ref{tab:mtd2params} serão utilizados para descrever este método. 
 	
 \begin{table}[htb]
 \IBGEtab{%
@@ -538,7 +538,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \subsection{Método 3 (MTD3): método com janela deslizante para detecção de BEP e EEP de segmentos utilizando variação total}
 % ---
 
-	Este é o método de segmentação utilizado em (GUT and MOSCHYTZ, 2000). As variáveis e constantes da Tabela \ref{tab:mtd3params} serão utilizados para descrever este método.
+	Este é o método de segmentação utilizado em (GUT and MOSCHYTZ, 2000). As definições da Tabela \ref{tab:mtd3params} serão utilizados para descrever este método.
 	
 \begin{table}[htb]
 \IBGEtab{%
@@ -593,9 +593,44 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \end{figure}
 	
 % ---
-\subsection{Método 4 (MTD4): método para detecção de início e fim de segmentos utilizando \emph{thresholding} de amplitudes}
+\subsection{Método 4 (MTD4): método com janela deslizante para detecção de BEP e EEP de segmentos utilizando \emph{threshold}}
 % ---
 
+Este é o método de segmentação utilizado em (PACHITTIS et al, 1995). As definições da Tabela \ref{tab:mtd4params} serão utilizados para descrever este método.
+	
+\begin{table}[htb]
+\IBGEtab{%
+	\caption{Parâmetros utilizados para definir MTD4}%
+	\label{tab:mtd4params}
+}{%
+	\begin{tabular}{ccc}
+	\toprule
+	Nome & Descrição \\
+	\midrule \midrule
+	$x$ & Sinal a ser segmentado \\
+	\midrule
+	$W$ & Comprimento da janela deslizante utilizada pelo método \\
+	\midrule
+	$T$ & Valor de \emph{threshold} \\
+	\bottomrule
+\end{tabular}%
+}{%
+	\fonte{Do autor.}%
+}
+\end{table}
+	
+	Primeiramente, a janela deslizante de comprimento $W$ percorre o sinal da direita para a esquerda. Os BEPs dos segmentos são os primeiros pontos (com exceção do final do sinal $x$) nas quais, com a janela situada à esquerda do ponto, o sinal contido pela janela permanece abaixo do valor de threshold $T$.
+	
+	As EEPs são identificadas de forma similar, com a janela percorrendo o sinal da esquerda para a direita. Os EEPs dos segmentos são os primeiros pontos nas quais, com a janela situada à direita do ponto (com exceção do ínicio do sinal $x$), o sinal contido pela janela permanece abaixo do valor de threshold $T$.
+	
+	No trabalho de (PACHITTIS et al, 1995), utilizou-se janelas de comprimento $W$ correspondente a 3 $ms$ de aquisição e \emph{threshold} $T$ de $\pm$ 40 $\mu V$ (o sinal de EMG segmentado não era retificado). A Figura \ref{fig:mtd4example} exemplifica as determinações de BEPs e EEPs utilizando o MTD4.
+	
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{./img/mtd4ex.png}
+\caption{Ilustração da implementação do MTD3, com $W = 100$. Do autor.}
+\label{fig:mtd4example}
+\end{figure}
 
 % ---
 \section{Redes Neurais Artificias}
