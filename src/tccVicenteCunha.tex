@@ -265,6 +265,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \begin{resumo}[Abstract]
  \begin{otherlanguage*}{english}
 	TRADUZIR RESUMO
+	
    \vspace{\onelineskip}
    \noindent 
    \textbf{Keywords}: Eletromiography. Segmentation. MATLAB. Ninapro database.
@@ -325,19 +326,19 @@ INSERIR A FICHA BIBLIOGRÁFICA
 
 	Sinais de EMG apresentam crescente aplicações no controle de próteses mioelétricas. Por exemplo, (HARGROVE et al, 2013) mostra o controle de prótese de perna de um amputado acima do joelho direito, enquanto (JUN-UK CHU et al, 2007) apresentou bons resultados de reconhecimento de padrões de EMG para desenvolvimento de uma prótese multifuncional de mão. Em áreas não relacionadas à próteses, (CONSTANTINOS S. PATTICHIS et al, 1995) utiliza redes neurais artificiais para realização de diagnósticos clínicos de desordens neuromusculares.
 
-	As principais estratégias para caracterização de sinais de EMG e potenciais de ação das unidades motoras baseiam-se no uso de um método classificador. Métodos de classificação utilizados incluem - entre inúmeros outros - redes neurais artificiais (HUDGINS et al,1993), classificador Bayesiano (ENGLEHART and HUDGINS, 2003), modelos de misturas de Gaussianas (HUANG et al, 2004) e lógicas \emph{fuzzy} (CHAN et al, 2000). Tais sistemas de classificação necessitam, como parte do preprocessamento, segmentar os sinais de EMG adquiridos, para então realizar a classificação a partir de características dos segmentos como amplitude, número de cruzamentos por zero, coeficientes de autoregressão, transformadas de Fourier e, mais recentemente, transformadas Wavelet (JUN-UK CHU et al, 2007). 
+	As principais estratégias para caracterização de sinais de EMG e potenciais de ação das unidades motoras baseiam-se no uso de um método classificador. Métodos de classificação utilizados incluem - entre inúmeros outros - redes neurais artificiais (HUDGINS et al,1993), classificador Bayesiano (ENGLEHART and HUDGINS, 2003), modelos de misturas de Gaussianas (HUANG et al, 2004) e lógicas \emph{fuzzy} (CHAN et al, 2000). Tais sistemas de classificação necessitam, como parte do preprocessamento, segmentar os sinais de EMG adquiridos, para então realizar extração de características dos segmentos como amplitude, número de cruzamentos por zero, coeficientes de autoregressão, transformadas de Fourier e, mais recentemente, transformadas Wavelet (JUN-UK CHU et al, 2007). 
 
-	Este trabalho tem como objetivo implementar em MATLAB quatro diferentes métodos de segmentação automática de sinais de EMG. Os métodos serão aplicados em sinais da base de dados realizada por (LOPES, 2014), que contempla sinais de EMG de superfície provenientes da região do antebraço, e na base de dados NINAPRO (ATZORI et al, 2012), que contém sinais de dez canais de EMG de superfície para 52 diferentes movimentos de mão e punho.
+	Este trabalho tem como objetivo implementar em MATLAB quatro diferentes métodos de segmentação automática de sinais de EMG. Os métodos serão aplicados em sinais da base de dados realizada por (LOPES, 2014), que contempla sinais de EMG de superfície provenientes da região do antebraço; e na base de dados NINAPRO (ATZORI et al, 2012), que contém sinais de dez canais de EMG de superfície para 52 diferentes movimentos de mão e punho.
 	
 	Os primeiros dois métodos (que serão identificados neste estudo pelos mneumônicos MTD1 e MTD2) tratam da detecção de picos do sinal e produzem segmentos de comprimento constante centrados nestes picos. O terceiro (MTD3) e quarto (MTD4) métodos utilizam de janela deslizante para identificação de pontos iniciais e finais dos segmentos, produzindo segmentos de comprimento variável. Para as implementações dos métodos neste estudo, assume-se o conhecimento \emph{a priori} do número de segmentos de interesse contidos no sinal.
 	
-	O primeiro método (MTD1) é baseado no método de segmentação utilzado em (CHAUVET et al, 2001). Trata-se de método iterativo, identificando os picos do sinal a partir de threshold de amplitude, segmentando o sinal em janelas de comprimento constante centradas nos picos. O valor de threshold para a primeira iteração corresponde ao máximo absoluto do sinal. A cada nova iteração em que não se atinge um número desejado de segmentos, o novo threshold é calculado como fração do threshold da iteração anterior.
+	O primeiro método (MTD1) é baseado no método de segmentação utilizado em (CHAUVET et al, 2001). Trata-se de método iterativo, identificando os picos do sinal a partir de \emph{threshold} de amplitude, segmentando o sinal em janelas de comprimento constante centradas nos picos. O valor de \emph{threshold} para a primeira iteração corresponde ao máximo absoluto do sinal. A cada nova iteração em que não se atinge um número desejado de segmentos, o novo \emph{threshold} é calculado como fração do \emph{threshold} da iteração anterior.
 	
-	O segundo método (MTD2) é baseado no método de segmentação utilizado em (KATSIS et al, 2006). De forma similar ao MTD1, também utiliza threshold para detecção de picos do sinal e segmentação com janelas de comprimento constante em torno dos picos. Diferentemente de MTD1, MTD2 não é iterativo, utilizando o valor máximo e o comprimento do sinal para cálculo do valor de threshold.
+	O segundo método (MTD2) é baseado no método de segmentação utilizado em (KATSIS et al, 2006). De forma similar ao MTD1, também utiliza \emph{threshold} para detecção de picos do sinal e segmentação com janelas de comprimento constante em torno dos picos. Diferentemente de MTD1, MTD2 não é iterativo, utilizando o valor máximo e o comprimento do sinal para cálculo do valor de \emph{threshold}.
 	
-	O terceiro método (MTD3) é baseado no método de segmentação utilizado em (GUT and MOSCHYTZ, 2000). Uma janela deslizante percorre o sinal e identifica inícios de segmentos quando a declividade média no interior da janela excede determinado valor de threshold. Os finais dos segmentos são identificados quando a variação total do sinal no interior da janela é inferior a um segundo valor de threshold.
+	O terceiro método (MTD3) é baseado no método de segmentação utilizado em (GUT and MOSCHYTZ, 2000). Uma janela deslizante percorre o sinal e identifica inícios de segmentos quando a declividade média no interior da janela excede determinado valor de \emph{threshold}. Os finais dos segmentos são identificados quando a variação total do sinal no interior da janela é inferior a um segundo valor de \emph{threshold}.
 	
-	O quarto método (MTD4) é baseado no método de segmentação utilizado em (PATTICHIS et al, 1995). Os pontos de início do segmento são tais que, em uma janela à esquerda do ponto, o sinal mantém-se abaixo de determinado threshold. Os pontos de final de segmento, de forma similar, são tais que, em uma janela à direita do ponto, o sinal mantém-se abaixo do threshold.
+	O quarto método (MTD4) é baseado no método de segmentação utilizado em (PATTICHIS et al, 1995). Os pontos de início do segmento são tais que, em uma janela à esquerda do ponto, o sinal mantém-se abaixo de determinado \emph{threshold}. Os pontos de final de segmento, de forma similar, são tais que, em uma janela à direita do ponto, o sinal mantém-se abaixo do \emph{threshold}.
 	
 	Utilizando valores de variância e RMS dos sinais segmentados, como no estudo de (SCHONS, 2014), uma rede neural artificial será treinada para classificar entre possíveis movimentos. O objetivo final deste estudo é avaliar a influência dos métodos de segmentação nas taxas de acerto de classiicação.
 	
@@ -351,25 +352,16 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Eletromiografia}
 % ---
 
-	Sinais de EMG podem ser adquiridos por sensores posicionados na superfície da pele ou por agulhas introduzidas no tecido muscular. Sinais de EMG são compostos por potenciais de ação de fibras musculares organizadas em unidades funcionais chamadas de "unidades motoras" (MU - \emph{Motor Unit}) (DE LUCA et al, 2006). Uma unidade motora é composta por um neurônio motor e as fibras musculares que ele inerva, e é a entidade fundamental que controla ativação de músculos estriados (BUCHTAL and SCHMALBRUCH, 1980). A soma algébrica dos potenciais de ação de todas as fibras de uma unidade motora é chamada de "potencial de ação da unidade motora", ou, em inglês, MUAP (\emph{Motor Unit Action Potential}) (ALMEIDA, 1997).
-
-	A Figura \ref{fig:MUAP_comp} apresenta a composição de uma MUAP a partir da soma dos potenciais das fibras de uma unidade motora. A Figura \ref{fig:MUAP_phases} exemplifica um sinal de MUAP e algumas de suas características básicas, como fases e amplitude.
+	Sinais de EMG podem ser adquiridos por sensores posicionados na superfície da pele ou por agulhas introduzidas no tecido muscular. Sinais de EMG são compostos por potenciais de ação de fibras musculares organizadas em unidades funcionais chamadas de "unidades motoras" (MU - \emph{Motor Unit}) (DE LUCA et al, 2006). Uma unidade motora é composta por um neurônio motor e as fibras musculares que ele inerva, e é a entidade fundamental que controla a ativação de músculos estriados (BUCHTAL and SCHMALBRUCH, 1980). A soma algébrica dos potenciais de ação de todas as fibras de uma unidade motora é chamada de "potencial de ação da unidade motora", ou em inglês, MUAP (\emph{Motor Unit Action Potential}) (ALMEIDA, 1997). A Figura \ref{fig:MUAP_comp} apresenta a composição de uma MUAP a partir da soma dos potenciais das fibras de uma unidade motora.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{../img/MUAP_comp.PNG}
-\caption{Soma algébrica de potenciais de ação das \emph{n} fibras de uma unidade motora, formando uma MUAP \emph{h(t)}. Adaptado de BASMAJIAN e DE LUCA, 2006}
+\includegraphics[width=0.6\linewidth]{../img/MUAP_oneMU.PNG}
+\caption{Soma de potenciais de ação das \emph{n} fibras de uma unidade motora, formando uma MUAP \emph{h(t)}. Adaptado de BASMAJIAN e DE LUCA, 1985}
 \label{fig:MUAP_comp}
 \end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.6\linewidth]{../img/MUAP_phases.jpg}
-\caption{Exemplo de um sinal de MUAP, com algumas de suas características básicas indicadas. Adaptado de BARKHAUS et al, 2013}
-\label{fig:MUAP_phases}
-\end{figure}
 	
-	Dependendo do método utilizado para aquisição de EMG, é comum a captura da contribuição de mais de uma unidade motora no mesmo canal. A influência de uma unidade motora no sinal adquirido depende principalmente da distância das fibras musculares ao ponto de aquisição (HAMMARBERG and STERNAD, 2002). A Figura \ref{fig:MUAP_soma} apresenta um exemplo com três unidades motoras, cujas MUAPs somadas compõem o sinal adquirido. 
+	Dependendo do método utilizado para aquisição de EMG, é comum a captura da contribuição de mais de uma unidade motora no mesmo canal. A influência de uma unidade motora no sinal adquirido depende principalmente da distância das fibras musculares ao ponto de aquisição (HAMMARBERG and STERNAD, 2002). A Figura \ref{fig:MUAP_soma} apresenta um exemplo com três unidades motoras, cujas MUAPs somadas compõem o sinal adquirido.
 	
 \begin{figure}
 \centering
@@ -387,24 +379,18 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \label{fig:MUAP_trains}
 \end{figure}
 
-\subsection{Sinais de EMG associados a movimentos}
-
-TODO: DESCREVER MÉTODOS UTILIZADOS PARA ASSOCIAR OS SINAIS A MOVIMENTOS (REGRESSÃO UTILIZANDO SENSORES DE ACELEROMETRIA E GIROSCOPIA, REPETIÇÃO DE MOVIMENTOS EM VÍDEO)
-
 % ---
-\section{Descrição dos Métodos de Segmentação}
+\section{Métodos de Segmentação}
 % ---
- 
-TODO: CRIAR FIGURAS EXPLICATIVAS PARA OS MÉTODOS
 
-	Esta seção descreve os princípios dos métodos de segmentação que foram utilizados para basear os métodos desenvolvidos neste estudo.
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Para descrição dos métodos finais implementados, vide seções 3.1 - 3.4.
  
 \subsection{Método 1: detecção de picos de sinal e janelamento constante em torno dos picos}
 
-	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado threshold $T$ de amplitudes. Este threshold $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do threshold $T$ é dada por \ref{eq:thresholdKatsis}.
+	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado \emph{threshold} $T$ de amplitudes. Este \emph{threshold} $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do \emph{threshold} $T$ é dada por \ref{eq:\emph{threshold}Katsis}.
 
 \begin{equation}
-\label{eq:thresholdKatsis}
+\label{eq:\emph{threshold}Katsis}
   if\left(max(x_i) > \frac{30}{L}\sum_{i=1}^{L}|x_i|\right)
 \end{equation}
 \begin{center}
@@ -412,17 +398,17 @@ $then: T = \frac{5}{L}\sum_{i=1}^{L}|x_i|;$
 $else: T = \frac{max(x_i)}{5}$
 \end{center}
 
-	Onde $L$ é o comprimento total do sinal de EMG $x$. Uma janela de comprimento constante (no caso de KATSIS 2006, utilizou-se 121 amostras) é centrada em cada elemento do sinal $x$ que seja superior ao threshold T, e avalia-se se no interior da janela existe a ocorrência de valor de pico maior em amplitude que o pico original. Caso exista, este pico é o novo centro da janela e repete-se a verificação.
+	Onde $L$ é o comprimento total do sinal de EMG $x$. Uma janela de comprimento constante (no caso de KATSIS 2006, utilizou-se 121 amostras) é centrada em cada elemento do sinal $x$ que seja superior ao \emph{threshold} T, e avalia-se se no interior da janela existe a ocorrência de valor de pico maior em amplitude que o pico original. Caso exista, este pico é o novo centro da janela e repete-se a verificação.
 
 	Com este método, os sinais segmentados obtidos serão sempre de comprimento temporal constante e centrados em elementos correspondentes a extremos locais do sinal.
 
 \subsection{Método 2: detecção de BEPs e EEPs}
 
-	Este método é inspirado no método de segmentação utilizado em (PATTICHIS et al, 1995). Primeiramente, determina-se uma janela deslizante de comprimento $L$ associada a um threshold de amplitudes $T$ (no trabalho original de PATTICHIS et al, 1995, o comprimento da janela era equivalente a 3 $ms$ e o threshold era de $\pm$ 40 $\mu V$). Utilizando esta janela encontram-se os pontos do sinal chamados de BEP e EEP, ou simplesmente início e fim dos segmentos, de modo a atender as seguintes relações:
+	Este método é inspirado no método de segmentação utilizado em (PATTICHIS et al, 1995). Primeiramente, determina-se uma janela deslizante de comprimento $L$ associada a um \emph{threshold} de amplitudes $T$ (no trabalho original de PATTICHIS et al, 1995, o comprimento da janela era equivalente a 3 $ms$ e o \emph{threshold} era de $\pm$ 40 $\mu V$). Utilizando esta janela encontram-se os pontos do sinal chamados de BEP e EEP, ou simplesmente início e fim dos segmentos, de modo a atender as seguintes relações:
 
 \begin{itemize}
-\item{BEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à esquerda permanecem menores que o threshold $T$;}
-\item{EEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à direita permanecem menores que o threshold $T$.}
+\item{BEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à esquerda permanecem menores que o \emph{threshold} $T$;}
+\item{EEPs são pontos nos quais os elementos da janela de comprimento $L$ posicionada à direita permanecem menores que o \emph{threshold} $T$.}
 \end{itemize}
 
 	Para trechos consecutivos de elementos do sinal que atendem os critérios acima, o BEP escolhido deve ser o elemento mais à direita e o EEP deve ser o elemento mais à esquerda. BEPs e EEPs ocorrem de forma intercalada ao longo do sinal.
