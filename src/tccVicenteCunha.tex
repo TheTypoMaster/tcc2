@@ -340,7 +340,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	
 	O quarto método (MTD4) é baseado no método de segmentação utilizado em (PATTICHIS et al, 1995). Os pontos de início do segmento são tais que, em uma janela à esquerda do ponto, o sinal mantém-se abaixo de determinado \emph{threshold}. Os pontos de final de segmento, de forma similar, são tais que, em uma janela à direita do ponto, o sinal mantém-se abaixo do \emph{threshold}.
 	
-	Utilizando valores de variância e RMS dos sinais segmentados, como no estudo de (SCHONS, 2014), uma rede neural artificial será treinada para classificar entre possíveis movimentos. O objetivo final deste estudo é avaliar a influência dos métodos de segmentação nas taxas de acerto de classiicação.
+	Utilizando valores de variância e RMS dos sinais segmentados, como no estudo de (SCHONS, 2014) [TODO: DETERMINAR AS CARACTERÍSTICAS A SEREM UTILIZADAS PARA TREINAMENTO DA REDE NEURAL], uma rede neural artificial será treinada para classificar entre possíveis movimentos. O objetivo final deste estudo é avaliar a influência dos métodos de segmentação nas taxas de acerto de classiicação.
 	
 % ---
 % Capitulo de revisão de literatura
@@ -349,7 +349,7 @@ INSERIR A FICHA BIBLIOGRÁFICA
 % ---
 
 % ---
-\section{Eletromiografia}
+\section{Sinais de Eletromiografia}
 % ---
 
 	Sinais de EMG podem ser adquiridos por sensores posicionados na superfície da pele ou por agulhas introduzidas no tecido muscular. Sinais de EMG são compostos por potenciais de ação de fibras musculares organizadas em unidades funcionais chamadas de "unidades motoras" (MU - \emph{Motor Unit}) (DE LUCA et al, 2006). Uma unidade motora é composta por um neurônio motor e as fibras musculares que ele inerva, e é a entidade fundamental que controla a ativação de músculos estriados (BUCHTAL and SCHMALBRUCH, 1980). A soma algébrica dos potenciais de ação de todas as fibras de uma unidade motora é chamada de "potencial de ação da unidade motora", ou em inglês, MUAP (\emph{Motor Unit Action Potential}) (ALMEIDA, 1997). A Figura \ref{fig:MUAP_comp} apresenta a composição de uma MUAP a partir da soma dos potenciais das fibras de uma unidade motora.
@@ -383,9 +383,57 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Métodos de Segmentação}
 % ---
 
-	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Para descrição dos métodos finais implementados, vide seções 3.1 - 3.4.
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que mneumônicos utilizados para nomear parâmetros (e.g. `$r$', `$q$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
+	
+\subsection{Método 1}
+
+	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). Os mneumônicos da Tabela \ref{tab:mtd1menumon} serão utilizados para descrever este método.
+	
+\begin{table}[htb]
+\ABNTEXfontereduzida
+\caption[Níveis de investigação]{Níveis de investigação.}
+\label{tab-nivinv}
+\begin{tabular}{p{2.6cm}|p{6.0cm}|p{2.25cm}|p{3.40cm}}
+  %\hline
+   \textbf{Nível de Investigação} & \textbf{Insumos}  & \textbf{Sistemas de Investigação}  & \textbf{Produtos}  \\
+    \hline
+    Meta-nível & Filosofia\index{filosofia} da Ciência  & Epistemologia &
+    Paradigma  \\
+    \hline
+    Nível do objeto & Paradigmas do metanível e evidências do nível inferior &
+    Ciência  & Teorias e modelos \\
+    \hline
+    Nível inferior & Modelos e métodos do nível do objeto e problemas do nível inferior & Prática & Solução de problemas  \\
+   % \hline
+\end{tabular}
+\legend{Fonte: \citeonline{van86}}
+\end{table}
+
+	
+	Inicialmente, determina-se o valor de \emph{threshold} $t_0$ equivalente ao máximo absoluto do sinal a ser segmentado (equação \ref{eq:mtd1t0}). O valor $t_k$ é atualizado em cada iteração $k$ como sendo uma fração $q$ de $t_{k-1}$ (equação \ref{eq:mtd1tk}).
+	
+\begin{equation}
+\label{eq:mtd1t0}
+  t_0 = max(x)
+\end{equation}
+
+\begin{equation}
+\label{eq:mtd1t0}
+  t_k = q \times t_{k-1}
+\end{equation}
+
+	Pontos do sinal que encontram-se acima do valor de $t_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
+	
+	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos e o comprimento total do sinal (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $t_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
+	
+\begin{equation}
+\label{eq:mtd1rk}
+  r_k = \frac{n_c}{L} 
+\end{equation}
+	
+	Por exemplo, no trecho de sinal de EMG da Figura \ref{fig:mtd1ex1}.
  
-\subsection{Método 1: detecção de picos de sinal e janelamento constante em torno dos picos}
+\subsection{Método 2: detecção de picos de sinal e janelamento constante em torno dos picos}
 
 	Este método é inspirado nos métodos utilizados nos trabalhos de (KATSIS et al 2003, 2006 e 2007). Primeiramente, detectam-se os picos de sinal acima de um determinado \emph{threshold} $T$ de amplitudes. Este \emph{threshold} $T$ deve ser obtido por relações entre a média, o comprimento e o valor máximo do sinal em questão. Na implementação original em (KATSIS et al, 2006), a relação utilizada para cálculo do \emph{threshold} $T$ é dada por \ref{eq:thKatsis}.
 
