@@ -383,9 +383,9 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \section{Métodos de Segmentação}
 % ---
 
-	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$Th$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
+	Esta seção descreve os métodos de segmentação originais que foram utilizados para basear os métodos implementados neste estudo. Nota-se que nomes utilizados para variáveis e constantes (e.g. `$r$', `$T$', etc.) foram determinados pelo autor deste estudo, não necessariamente sendo estes utilizados nos métodos originais.
 	
-\subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos}
+\subsection{Método 1 (MTD1) - método iterativo para detecção de centros de segmentos de comprimento constante}
 
 	Este é o método iterativo de segmentação utilizado em (CHAUVET et al, 2001). As variáveis e constantes da Tabela \ref{tab:mtd1params} serão utilizados para descrever este método.
 	
@@ -426,13 +426,13 @@ INSERIR A FICHA BIBLIOGRÁFICA
 \end{equation}
 
 \begin{equation}
-\label{eq:mtd1t0}
+\label{eq:mtd1tk}
   T_k = q \times T_{k-1}
 \end{equation}
 
 	Pontos do sinal que encontram-se acima do valor de $T_k$ são considerados candidatos para centros de segmentos. Caso exista mais de um candidato em uma vizinhança bilateral de $l$ amostras do sinal, apenas o ponto de maior amplitude nesta vizinhança é considerado.
 	
-	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos $N_{k}$ e o comprimento total do sinal $L$ (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_target$, calcula-se $T_{k+1}$ para conseguinte realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_target$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
+	Para determinar o final do método, avalia-se a razão $r_k$ entre a quantidade identificada de candidatos $N_{k}$ e o comprimento total do sinal $L$ (equação \ref{eq:mtd1rk}). Caso $r_k$ seja menor que um valor predeterminado $r_{target}$, calcula-se $T_{k+1}$ para realização da próxima iteração (equação \ref{eq:mtd1tk}). Caso $r_k$ seja maior ou igual ao valor predeterminado $r_{target}$, encerra-se o método e os segmentos são tomados como janelas de sinal de comprimento $l$, centradas nos candidatos identificados na última iteração.
 	
 \begin{equation}
 \label{eq:mtd1rk}
@@ -443,11 +443,11 @@ INSERIR A FICHA BIBLIOGRÁFICA
 	
 	TODO: CRIAR FLUXOGRAMA
 	
-	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% e segmentos de comprimento fixo de 400 amostras.
+	Para ilustrar o MTD1, a Figura \ref{fig:mtd1example} apresenta uma implementação em trecho de sinal de EMG retirado da base de dados Ninapro, com fração $q$ de 90\% (isto é, $T_k = 0.9\times T_{k-1}$) e segmentos de comprimento $l$ de 400 amostras.
  
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth]{../img/mtd1example.png}
+\includegraphics[width=\linewidth]{../img/mtd1example.png}
 \caption{Ilustração da implementação do MTD1, com $q = 0.9$ e $l = 400$. Do autor.}
 \label{fig:mtd1example}
 \end{figure}
